@@ -186,13 +186,12 @@ public class ValidationItemControllerV2 {
             bindingResult.rejectValue("quantity","max",new Object[]{9999},null);
         }
 
-        //특정 필드가 아닌 복합 룰 검증
-        if(item.getPrice() != null && item.getQuantity() != null) {
+        //특정 필드 예외가 아닌 전체 예외
+        if (item.getPrice() != null && item.getQuantity() != null) {
             int resultPrice = item.getPrice() * item.getQuantity();
-            if(resultPrice < 10000) {
-                bindingResult.reject(totalPriceMin,new Object[]{1000,resultPrice},null);
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
             }
-
         }
 
         //검증에 실패하면 다시 입력 품으로
